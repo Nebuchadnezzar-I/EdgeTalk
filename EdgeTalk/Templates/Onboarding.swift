@@ -6,45 +6,42 @@
 //
 
 import Foundation
-import SnapKit
-import Then
 import UIKit
 
 func GenerateOnboardingText(
     mainText: String, mainTextLoC: Int,
     subText: String, subTextLoC: Int
 ) -> UIView {
-    let container = UIView();
+    let container = UIView()
 
-    let bigText = UILabel().then {
-        $0.text = mainText
-        $0.numberOfLines = mainTextLoC
-        $0.font = .systemFont(ofSize: 40, weight: .bold)
-        $0.textColor = .white
-    }
+    let bigText = UILabel()
+    bigText.text = mainText
+    bigText.numberOfLines = mainTextLoC
+    bigText.font = .systemFont(ofSize: 40, weight: .bold)
+    bigText.textColor = .white
+    bigText.translatesAutoresizingMaskIntoConstraints = false
 
-    let smallText = UILabel().then {
-        $0.text = subText
-        $0.numberOfLines = subTextLoC
-        $0.font = .systemFont(ofSize: 16, weight: .regular)
-        $0.textColor = .white
-    }
-    
+    let smallText = UILabel()
+    smallText.text = subText
+    smallText.numberOfLines = subTextLoC
+    smallText.font = .systemFont(ofSize: 16, weight: .regular)
+    smallText.textColor = .white
+    smallText.translatesAutoresizingMaskIntoConstraints = false
+
     container.addSubview(bigText)
     container.addSubview(smallText)
-    
-    bigText.snp.makeConstraints { make in
-        make.top.equalToSuperview()
-        make.left.equalToSuperview()
-        make.right.equalToSuperview()
-    }
-    
-    smallText.snp.makeConstraints { make in
-        make.top.equalTo(bigText.snp.bottom).offset(20)
-        make.left.equalToSuperview()
-        make.right.equalToSuperview()
-        make.bottom.equalToSuperview()
-    }
-    
+
+    NSLayoutConstraint.activate([
+        bigText.topAnchor.constraint(equalTo: container.topAnchor),
+        bigText.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+        bigText.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+
+        smallText.topAnchor.constraint(
+            equalTo: bigText.bottomAnchor, constant: 20),
+        smallText.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+        smallText.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+        smallText.bottomAnchor.constraint(equalTo: container.bottomAnchor),
+    ])
+
     return container
 }

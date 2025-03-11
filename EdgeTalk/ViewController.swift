@@ -10,100 +10,94 @@ import Then
 import UIKit
 
 class ViewController: UIViewController {
+    @objc func incrementBubbleIndex() {
+        AppState.shared.activeBubbleIndex += 1
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let OnboardingFooterView = UIView().then {
-            $0.backgroundColor = .black
-        }
-        
-        let LayoutBubbleView = UIView().then {
-            $0.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-            $0.backgroundColor = UIColor.clear
-        }
+        // Parent
+        let container = UIView()
+        container.translatesAutoresizingMaskIntoConstraints = false
 
-        let BigBubbleView = UIView().then {
-            $0.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-            $0.layer.cornerRadius = 15
-            $0.layer.borderWidth = 1.0
-            $0.layer.borderColor = UIColor.white.cgColor.copy(alpha: 0.1)
-            $0.clipsToBounds = true
-            $0.backgroundColor = UIColor.clear
-        }
-        
-        let MiddleBubbleView = UIView().then {
-            $0.frame = CGRect(x: 0, y: 0, width: 14, height: 14)
-            $0.layer.cornerRadius = 7
-            $0.layer.borderWidth = 1.0
-            $0.layer.borderColor = UIColor.white.cgColor.copy(alpha: 0.3)
-            $0.clipsToBounds = true
-            $0.backgroundColor = UIColor.clear
-        }
-        
-        let CenterBubbleView = UIView().then {
-            $0.frame = CGRect(x: 0, y: 0, width: 6, height: 6)
-            $0.layer.cornerRadius = 7
-            $0.backgroundColor = UIColor.white
-        }
-        
-        LayoutBubbleView.addSubview(BigBubbleView)
-        LayoutBubbleView.addSubview(MiddleBubbleView)
-        LayoutBubbleView.addSubview(CenterBubbleView)
-        
-        
-        OnboardingFooterView.addSubview(LayoutBubbleView)
-        OnboardingFooterView.addSubview(LayoutBubbleView)
-        OnboardingFooterView.addSubview(LayoutBubbleView)
-        
-        view.addSubview(OnboardingFooterView)
-        
-        BigBubbleView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.width.height.equalTo(30)
-        }
+        let bigText = UILabel()
+        bigText.text = "Negotiate smart\nWin more deals"
+        bigText.numberOfLines = 2
+        bigText.font = .systemFont(ofSize: 40, weight: .bold)
+        bigText.textColor = .white
+        bigText.translatesAutoresizingMaskIntoConstraints = false
 
-        MiddleBubbleView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.width.height.equalTo(14)
-        }
+        bigText.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(incrementBubbleIndex))
+        bigText.addGestureRecognizer(tapGesture)
 
-        CenterBubbleView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.width.height.equalTo(6)
-        }
+        let smallText = UILabel()
+        smallText.text =
+            "Master the art of persuasion\nwith AI-driven insights and\nreal-world negotiation tactics."
+        smallText.numberOfLines = 3
+        smallText.font = .systemFont(ofSize: 16, weight: .regular)
+        smallText.textColor = .white
+        smallText.translatesAutoresizingMaskIntoConstraints = false
 
-        let safe = view.safeAreaLayoutGuide.snp
-        OnboardingFooterView.snp.makeConstraints { make in
-            make.top.equalTo(safe.top).offset(16)
-            make.left.equalTo(safe.left).offset(16)
-            make.bottom.equalTo(safe.bottom).offset(-16)
-            make.right.equalTo(safe.right).offset(-16)
-        }
+        let footerBubbles = UIView()
+        footerBubbles.translatesAutoresizingMaskIntoConstraints = false
 
-        //        let parentView = UIView().then {
-        //            $0.backgroundColor = .black
-        //        }
+        let bubbleLayout1 = CreateBubbleRadar(idx: 0)
+        let bubbleLayout2 = CreateBubbleRadar(idx: 1)
+        let bubbleLayout3 = CreateBubbleRadar(idx: 2)
+
+        footerBubbles.addSubview(bubbleLayout1)
+        footerBubbles.addSubview(bubbleLayout2)
+        footerBubbles.addSubview(bubbleLayout3)
+
+        container.addSubview(bigText)
+        container.addSubview(smallText)
+        container.addSubview(footerBubbles)
         //
-        //        let Onboarding1 = GenerateOnboardingText(
-        //            mainText: "Negotiate smart\nWin more deals", mainTextLoC: 2,
-        //            subText: "Master the art of persuasion\nwith AI-driven insights and\nreal-world negotiation tactics.", subTextLoC: 3
-        //        );
+
+        // Tree
+        view.addSubview(container)
         //
-        //        parentView.addSubview(Onboarding1)
-        //        view.addSubview(parentView)
+
+        // Constrains
+        NSLayoutConstraint.activate([
+            container.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            container.bottomAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            container.leadingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            container.trailingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+
+            smallText.bottomAnchor.constraint(
+                equalTo: footerBubbles.topAnchor, constant: -48),
+            smallText.leadingAnchor.constraint(
+                equalTo: container.leadingAnchor),
+            smallText.trailingAnchor.constraint(
+                equalTo: container.trailingAnchor),
+
+            bigText.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            bigText.trailingAnchor.constraint(
+                equalTo: container.trailingAnchor),
+            bigText.bottomAnchor.constraint(
+                equalTo: smallText.topAnchor, constant: -20),
+
+            footerBubbles.centerXAnchor.constraint(
+                equalTo: container.centerXAnchor),
+            footerBubbles.bottomAnchor.constraint(
+                equalTo: container.bottomAnchor),
+            footerBubbles.widthAnchor.constraint(equalToConstant: 106),
+            footerBubbles.heightAnchor.constraint(equalToConstant: 30),
+
+            bubbleLayout1.leadingAnchor.constraint(
+                equalTo: footerBubbles.leadingAnchor),
+            bubbleLayout2.centerXAnchor.constraint(
+                equalTo: footerBubbles.centerXAnchor),
+            bubbleLayout3.trailingAnchor.constraint(
+                equalTo: footerBubbles.trailingAnchor),
+        ])
         //
-        //        let safe = view.safeAreaLayoutGuide.snp
-        //        parentView.snp.makeConstraints { make in
-        //            make.top.equalTo(safe.top).offset(16)
-        //            make.left.equalTo(safe.left).offset(16)
-        //            make.bottom.equalTo(safe.bottom).offset(-16)
-        //            make.right.equalTo(safe.right).offset(-16)
-        //        }
-        //
-        //        Onboarding1.snp.makeConstraints { make in
-        //            make.bottom.equalTo(parentView.snp.bottom).offset(-48)
-        //            make.left.equalTo(parentView.snp.left)
-        //        }
     }
 }
