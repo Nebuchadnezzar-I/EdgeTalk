@@ -1,0 +1,30 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -scheme EdgeTalk -configuration Debug build
+
+User defaults from command line:
+    IDEPackageSupportUseBuiltinSCM = YES
+
+Prepare packages
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (1 target)
+    Target 'EdgeTalk' in project 'EdgeTalk' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --print-asset-tag-combinations --output-format xml1 /Users/michalukropec/Documents/Swift Learning/EdgeTalk/EdgeTalk/Assets.xcassets
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --version --output-format xml1
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+Build description signature: 5f86d1e1a74bb663e6b2bd7993edaab3
+Build description path: /Users/michalukropec/Library/Developer/Xcode/DerivedData/EdgeTalk-gwodfbzlgzhmcfadlgfupvpyqmzj/Build/Intermediates.noindex/XCBuildData/5f86d1e1a74bb663e6b2bd7993edaab3.xcbuilddata
+/Users/michalukropec/Documents/Swift Learning/EdgeTalk/EdgeTalk.xcodeproj: error: Provisioning profile "iOS Team Provisioning Profile: ukropec.michal.jr-gmail.com.EdgeTalk" doesn't include the currently selected device "Michal’s MacBook Pro" (identifier 00006040-000A68CC3A00801C). (in target 'EdgeTalk' from project 'EdgeTalk')
