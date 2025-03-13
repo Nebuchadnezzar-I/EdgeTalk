@@ -17,57 +17,170 @@ enum AppScene {
         switch self {
         case .OnboardingOne:
             return [
-                vc.SampleLabel.centerXAnchor.constraint(
-                    equalTo: vc.view.centerXAnchor),
-                vc.SampleLabel.topAnchor.constraint(
-                    equalTo: vc.view.safeAreaLayoutGuide.topAnchor, constant: 50
-                ),
-                vc.SampleLabel.leadingAnchor.constraint(
-                    equalTo: vc.view.safeAreaLayoutGuide.leadingAnchor,
-                    constant: 20),
-                vc.SampleLabel.trailingAnchor.constraint(
-                    equalTo: vc.view.safeAreaLayoutGuide.trailingAnchor,
-                    constant: -20),
-                vc.SampleLabel.heightAnchor.constraint(equalToConstant: 40),
+                // Onboarding One (Visible)
+                vc.OnboardingOneBigText.leadingAnchor.constraint(
+                    equalTo: vc.view.leadingAnchor, constant: 16),
+                vc.OnboardingOneBigText.trailingAnchor.constraint(
+                    equalTo: vc.view.trailingAnchor, constant: -16),
+                vc.OnboardingOneBigText.bottomAnchor.constraint(
+                    equalTo: vc.OnboardingOneSubText.topAnchor, constant: -24),
 
-                vc.SampleLabelOne.centerXAnchor.constraint(
-                    equalTo: vc.view.centerXAnchor),
-                vc.SampleLabelOne.topAnchor.constraint(
-                    equalTo: vc.view.bottomAnchor, constant: 100),
+                vc.OnboardingOneSubText.leadingAnchor.constraint(
+                    equalTo: vc.view.leadingAnchor, constant: 16),
+                vc.OnboardingOneSubText.trailingAnchor.constraint(
+                    equalTo: vc.view.trailingAnchor, constant: -16),
+                vc.OnboardingOneSubText.bottomAnchor.constraint(
+                    equalTo: vc.view.bottomAnchor, constant: -160),
 
-                vc.SampleLabelTwo.centerXAnchor.constraint(
-                    equalTo: vc.view.centerXAnchor),
-                vc.SampleLabelTwo.topAnchor.constraint(
-                    equalTo: vc.view.bottomAnchor, constant: 100),
+                // Onboarding Two (Invisible)
+                vc.OnboardingTwoBigText.leadingAnchor.constraint(
+                    equalTo: vc.view.leadingAnchor,
+                    constant: vc.view.frame.width + 100),
+                vc.OnboardingTwoBigText.trailingAnchor.constraint(
+                    equalTo: vc.view.trailingAnchor,
+                    constant: vc.view.frame.width + 100),
+                vc.OnboardingTwoBigText.bottomAnchor.constraint(
+                    equalTo: vc.OnboardingTwoSubText.topAnchor, constant: -24),
+
+                vc.OnboardingTwoSubText.leadingAnchor.constraint(
+                    equalTo: vc.view.leadingAnchor,
+                    constant: vc.view.frame.width + 40),
+                vc.OnboardingTwoSubText.trailingAnchor.constraint(
+                    equalTo: vc.view.trailingAnchor,
+                    constant: vc.view.frame.width + 40),
+                vc.OnboardingTwoSubText.bottomAnchor.constraint(
+                    equalTo: vc.view.bottomAnchor, constant: -160),
+                
+                // Onboarding Three (Invisible)
+                vc.OnboardingThreeBigText.leadingAnchor.constraint(
+                    equalTo: vc.view.leadingAnchor,
+                    constant: vc.view.frame.width + 100),
+                vc.OnboardingThreeBigText.trailingAnchor.constraint(
+                    equalTo: vc.view.trailingAnchor,
+                    constant: vc.view.frame.width + 100),
+                vc.OnboardingThreeBigText.bottomAnchor.constraint(
+                    equalTo: vc.OnboardingThreeSubText.topAnchor, constant: -24),
+
+                vc.OnboardingThreeSubText.leadingAnchor.constraint(
+                    equalTo: vc.view.leadingAnchor,
+                    constant: vc.view.frame.width + 40),
+                vc.OnboardingThreeSubText.trailingAnchor.constraint(
+                    equalTo: vc.view.trailingAnchor,
+                    constant: vc.view.frame.width + 40),
+                vc.OnboardingThreeSubText.bottomAnchor.constraint(
+                    equalTo: vc.view.bottomAnchor, constant: -160),
             ]
 
         case .OnboardingTwo:
             return [
-                vc.SampleLabelOne.centerXAnchor.constraint(
-                    equalTo: vc.view.centerXAnchor),
-                vc.SampleLabelOne.centerYAnchor.constraint(
-                    equalTo: vc.view.safeAreaLayoutGuide.centerYAnchor),
-                vc.SampleLabelOne.leadingAnchor.constraint(
-                    equalTo: vc.view.safeAreaLayoutGuide.leadingAnchor,
-                    constant: 30),
-                vc.SampleLabelOne.trailingAnchor.constraint(
-                    equalTo: vc.view.safeAreaLayoutGuide.trailingAnchor,
-                    constant: -30),
-                vc.SampleLabelOne.heightAnchor.constraint(equalToConstant: 50),
+                // Onboarding One (Invisible)
+                vc.OnboardingOneBigText.leadingAnchor.constraint(
+                    equalTo: vc.view.leadingAnchor,
+                    constant: -vc.view.frame.width - 16),
+                vc.OnboardingOneBigText.trailingAnchor.constraint(
+                    equalTo: vc.view.trailingAnchor,
+                    constant: -vc.view.frame.width - 32),
+                vc.OnboardingOneBigText.bottomAnchor.constraint(
+                    equalTo: vc.OnboardingOneSubText.topAnchor, constant: -24),
+
+                vc.OnboardingOneSubText.leadingAnchor.constraint(
+                    equalTo: vc.view.leadingAnchor,
+                    constant: -vc.view.frame.width - 16),
+                vc.OnboardingOneSubText.trailingAnchor.constraint(
+                    equalTo: vc.view.trailingAnchor,
+                    constant: -vc.view.frame.width - 32),
+                vc.OnboardingOneSubText.bottomAnchor.constraint(
+                    equalTo: vc.view.bottomAnchor, constant: -160),
+
+                // Onboarding Two (Visible)
+                vc.OnboardingTwoBigText.leadingAnchor.constraint(
+                    equalTo: vc.view.leadingAnchor, constant: 16),
+                vc.OnboardingTwoBigText.trailingAnchor.constraint(
+                    equalTo: vc.view.trailingAnchor, constant: -16),
+                vc.OnboardingTwoBigText.bottomAnchor.constraint(
+                    equalTo: vc.OnboardingTwoSubText.topAnchor, constant: -24),
+
+                vc.OnboardingTwoSubText.leadingAnchor.constraint(
+                    equalTo: vc.view.leadingAnchor, constant: 16),
+                vc.OnboardingTwoSubText.trailingAnchor.constraint(
+                    equalTo: vc.view.trailingAnchor, constant: -16),
+                vc.OnboardingTwoSubText.bottomAnchor.constraint(
+                    equalTo: vc.view.bottomAnchor, constant: -160),
+                
+                // Onboarding Three (Invisible)
+                vc.OnboardingThreeBigText.leadingAnchor.constraint(
+                    equalTo: vc.view.leadingAnchor,
+                    constant: vc.view.frame.width + 100),
+                vc.OnboardingThreeBigText.trailingAnchor.constraint(
+                    equalTo: vc.view.trailingAnchor,
+                    constant: vc.view.frame.width + 100),
+                vc.OnboardingThreeBigText.bottomAnchor.constraint(
+                    equalTo: vc.OnboardingThreeSubText.topAnchor, constant: -24),
+
+                vc.OnboardingThreeSubText.leadingAnchor.constraint(
+                    equalTo: vc.view.leadingAnchor,
+                    constant: vc.view.frame.width + 40),
+                vc.OnboardingThreeSubText.trailingAnchor.constraint(
+                    equalTo: vc.view.trailingAnchor,
+                    constant: vc.view.frame.width + 40),
+                vc.OnboardingThreeSubText.bottomAnchor.constraint(
+                    equalTo: vc.view.bottomAnchor, constant: -160),
             ]
 
         case .OnboardingThree:
             return [
-                vc.SampleLabelTwo.leadingAnchor.constraint(
-                    equalTo: vc.view.safeAreaLayoutGuide.leadingAnchor,
-                    constant: 20),
-                vc.SampleLabelTwo.trailingAnchor.constraint(
-                    equalTo: vc.view.safeAreaLayoutGuide.trailingAnchor,
-                    constant: -20),
-                vc.SampleLabelTwo.bottomAnchor.constraint(
-                    equalTo: vc.view.safeAreaLayoutGuide.bottomAnchor,
-                    constant: -40),
-                vc.SampleLabelTwo.heightAnchor.constraint(equalToConstant: 60),
+                // Onboarding One (Invisible)
+                vc.OnboardingOneBigText.leadingAnchor.constraint(
+                    equalTo: vc.view.leadingAnchor,
+                    constant: -vc.view.frame.width - 16),
+                vc.OnboardingOneBigText.trailingAnchor.constraint(
+                    equalTo: vc.view.trailingAnchor,
+                    constant: -vc.view.frame.width - 32),
+                vc.OnboardingOneBigText.bottomAnchor.constraint(
+                    equalTo: vc.OnboardingOneSubText.topAnchor, constant: -24),
+
+                vc.OnboardingOneSubText.leadingAnchor.constraint(
+                    equalTo: vc.view.leadingAnchor,
+                    constant: -vc.view.frame.width - 16),
+                vc.OnboardingOneSubText.trailingAnchor.constraint(
+                    equalTo: vc.view.trailingAnchor,
+                    constant: -vc.view.frame.width - 32),
+                vc.OnboardingOneSubText.bottomAnchor.constraint(
+                    equalTo: vc.view.bottomAnchor, constant: -160),
+
+                // Onboarding Two (Visible)
+                vc.OnboardingTwoBigText.leadingAnchor.constraint(
+                    equalTo: vc.view.leadingAnchor,
+                    constant: -vc.view.frame.width - 16),
+                vc.OnboardingTwoBigText.trailingAnchor.constraint(
+                    equalTo: vc.view.trailingAnchor,
+                    constant: -vc.view.frame.width - 32),
+                vc.OnboardingTwoBigText.bottomAnchor.constraint(
+                    equalTo: vc.OnboardingTwoSubText.topAnchor, constant: -24),
+
+                vc.OnboardingTwoSubText.leadingAnchor.constraint(
+                    equalTo: vc.view.leadingAnchor,
+                    constant: -vc.view.frame.width - 16),
+                vc.OnboardingTwoSubText.trailingAnchor.constraint(
+                    equalTo: vc.view.trailingAnchor,
+                    constant: -vc.view.frame.width - 32),
+                vc.OnboardingTwoSubText.bottomAnchor.constraint(
+                    equalTo: vc.view.bottomAnchor, constant: -160),
+                
+                // Onboarding Three (Invisible)
+                vc.OnboardingThreeBigText.leadingAnchor.constraint(
+                    equalTo: vc.view.leadingAnchor, constant: 16),
+                vc.OnboardingThreeBigText.trailingAnchor.constraint(
+                    equalTo: vc.view.trailingAnchor, constant: -16),
+                vc.OnboardingThreeBigText.bottomAnchor.constraint(
+                    equalTo: vc.OnboardingThreeSubText.topAnchor, constant: -24),
+
+                vc.OnboardingThreeSubText.leadingAnchor.constraint(
+                    equalTo: vc.view.leadingAnchor, constant: 16),
+                vc.OnboardingThreeSubText.trailingAnchor.constraint(
+                    equalTo: vc.view.trailingAnchor, constant: -16),
+                vc.OnboardingThreeSubText.bottomAnchor.constraint(
+                    equalTo: vc.view.bottomAnchor, constant: -160),
             ]
         }
     }
