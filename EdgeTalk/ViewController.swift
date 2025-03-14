@@ -8,78 +8,28 @@
 import UIKit
 
 class ViewController: UIViewController {
-    // Temp
-    
-    let OnboardingOneBigText: UILabel = {
-        let label = UILabel()
-        label.text = "Master Deals\nSharpen Skills"
-        label.numberOfLines = 2
-        label.textColor = .white
-        label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 40, weight: .bold)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-
-    let OnboardingOneSubText: UILabel = {
-        let label = UILabel()
-        label.text =
+    lazy var onboardingOneBigText = createTitleLabel(
+        text: "Master Deals\nSharpen Skills")
+    lazy var onboardingOneSubText = createSubtitleLabel(
+        text:
             "Master negotiations with AI,\nsharpen your strategy today,\nwin deals with confidence."
-        label.numberOfLines = 3
-        label.textColor = .white
-        label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 18, weight: .light)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let OnboardingTwoBigText: UILabel = {
-        let label = UILabel()
-        label.text = "Outsmart Them\nStay in Control"
-        label.numberOfLines = 2
-        label.textColor = .white
-        label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 40, weight: .bold)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    )
 
-    let OnboardingTwoSubText: UILabel = {
-        let label = UILabel()
-        label.text =
+    // Onboarding Two
+    lazy var onboardingTwoBigText = createTitleLabel(
+        text: "Outsmart Them\nStay in Control")
+    lazy var onboardingTwoSubText = createSubtitleLabel(
+        text:
             "Understand persuasion tactics,\noutsmart opponents with ease,\nsecure the best outcomes."
-        label.numberOfLines = 3
-        label.textColor = .white
-        label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 18, weight: .light)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let OnboardingThreeBigText: UILabel = {
-        let label = UILabel()
-        label.text = "Win more deals\nSeal the Terms"
-        label.numberOfLines = 2
-        label.textColor = .white
-        label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 40, weight: .bold)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    )
 
-    let OnboardingThreeSubText: UILabel = {
-        let label = UILabel()
-        label.text =
+    // Onboarding Three
+    lazy var onboardingThreeBigText = createTitleLabel(
+        text: "Win more deals\nSeal the Terms")
+    lazy var onboardingThreeSubText = createSubtitleLabel(
+        text:
             "Turn pressure into power,\ncontrol every conversation,\nclose deals on your terms."
-        label.numberOfLines = 3
-        label.textColor = .white
-        label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 18, weight: .light)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    // Temp end
+    )
 
     private var activeConstraints: [NSLayoutConstraint] = []
     private var currentScene: AppScene = .OnboardingOne
@@ -87,14 +37,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.addSubview(OnboardingOneBigText)
-        view.addSubview(OnboardingOneSubText)
-        
-        view.addSubview(OnboardingTwoBigText)
-        view.addSubview(OnboardingTwoSubText)
-        
-        view.addSubview(OnboardingThreeBigText)
-        view.addSubview(OnboardingThreeSubText)
+        view.addSubviews(
+            onboardingOneBigText, onboardingOneSubText,
+            onboardingTwoBigText, onboardingTwoSubText,
+            onboardingThreeBigText, onboardingThreeSubText
+        )
 
         switchToScene(.OnboardingOne)
 
