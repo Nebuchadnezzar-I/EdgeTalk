@@ -8,93 +8,65 @@
 import UIKit
 
 class ViewController: UIViewController {
-    lazy var onboardingOneBigText = createTitleLabel(
-        text: "Master Deals\nSharpen Skills")
-    lazy var onboardingOneSubText = createSubtitleLabel(
-        text:
-            "Master negotiations with AI,\nsharpen your strategy today,\nwin deals with confidence."
-    )
+    let ScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.isPagingEnabled = true
+        scrollView.showsHorizontalScrollIndicator = false
+        return scrollView
+    }()
 
-    // Onboarding Two
-    lazy var onboardingTwoBigText = createTitleLabel(
-        text: "Outsmart Them\nStay in Control")
-    lazy var onboardingTwoSubText = createSubtitleLabel(
-        text:
-            "Understand persuasion tactics,\noutsmart opponents with ease,\nsecure the best outcomes."
-    )
+    let ContentView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 0
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
 
-    // Onboarding Three
-    lazy var onboardingThreeBigText = createTitleLabel(
-        text: "Win more deals\nSeal the Terms")
-    lazy var onboardingThreeSubText = createSubtitleLabel(
-        text:
-            "Turn pressure into power,\ncontrol every conversation,\nclose deals on your terms."
-    )
-
-    private var activeConstraints: [NSLayoutConstraint] = []
-    private var currentScene: AppScene = .OnboardingOne
+    let OnboardingOneView = OnboardingOne().setupViews()
+    let OnboardingTwoView = OnboardingTwo().setupViews()
+    let OnboardingThreeView = OnboardingThree().setupViews()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.addSubviews(
-            onboardingOneBigText, onboardingOneSubText,
-            onboardingTwoBigText, onboardingTwoSubText,
-            onboardingThreeBigText, onboardingThreeSubText
-        )
-
-        switchToScene(.OnboardingOne)
-
-        setupNextButton()
-    }
-
-    func switchToScene(_ scene: AppScene) {
-        NSLayoutConstraint.deactivate(activeConstraints)
-
-        currentScene = scene
-        activeConstraints = scene.createConstraints(for: self)
-
-        NSLayoutConstraint.activate(activeConstraints)
-
-        UIView.animate(
-            withDuration: 0.3,
-            delay: 0,
-            usingSpringWithDamping: 0.7,
-            initialSpringVelocity: 0.8,
-            options: [.curveEaseInOut],
-            animations: {
-                self.view.layoutIfNeeded()
-            }
-        )
-
-    }
-
-    func setupNextButton() {
-        let button = UIButton(type: .system)
-        button.setTitle("Next Scene", for: .normal)
-        button.addTarget(
-            self, action: #selector(nextButtonTapped), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-
-        view.addSubview(button)
+        view.addSubview(ScrollView)
+        ScrollView.addSubview(ContentView)
+        
+        ContentView.addArrangedSubview(OnboardingOneView)
+        ContentView.addArrangedSubview(OnboardingTwoView)
+        ContentView.addArrangedSubview(OnboardingThreeView)
 
         NSLayoutConstraint.activate([
-            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            button.bottomAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            button.widthAnchor.constraint(equalToConstant: 150),
-            button.heightAnchor.constraint(equalToConstant: 44),
-        ])
-    }
+            ScrollView.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor),
+            ScrollView.leadingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            ScrollView.trailingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            ScrollView.bottomAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 
-    @objc func nextButtonTapped() {
-        switch currentScene {
-        case .OnboardingOne:
-            switchToScene(.OnboardingTwo)
-        case .OnboardingTwo:
-            switchToScene(.OnboardingThree)
-        case .OnboardingThree:
-            switchToScene(.OnboardingOne)
-        }
+            ContentView.topAnchor.constraint(equalTo: ScrollView.topAnchor),
+            ContentView.leadingAnchor.constraint(
+                equalTo: ScrollView.leadingAnchor),
+            ContentView.trailingAnchor.constraint(
+                equalTo: ScrollView.trailingAnchor),
+            ContentView.bottomAnchor.constraint(
+                equalTo: ScrollView.bottomAnchor),
+
+            ContentView.heightAnchor.constraint(
+                equalTo: ScrollView.heightAnchor),
+            ContentView.widthAnchor.constraint(
+                equalTo: ScrollView.widthAnchor, multiplier: 3),
+
+            OnboardingOneView.widthAnchor.constraint(
+                equalTo: ScrollView.widthAnchor),
+            OnboardingTwoView.widthAnchor.constraint(
+                equalTo: ScrollView.widthAnchor),
+            OnboardingThreeView.widthAnchor.constraint(
+                equalTo: ScrollView.widthAnchor),
+        ])
     }
 }

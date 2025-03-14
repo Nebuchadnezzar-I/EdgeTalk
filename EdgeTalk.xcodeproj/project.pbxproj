@@ -6,13 +6,8 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		0B8A6C6D2D83FF4A00FC499F /* UIFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8A6C6C2D83FF4A00FC499F /* UIFactory.swift */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
 		0B14FA472D7F802A00A11DBF /* EdgeTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EdgeTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		0B8A6C6C2D83FF4A00FC499F /* UIFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -50,7 +45,6 @@
 		0B14FA3E2D7F802A00A11DBF = {
 			isa = PBXGroup;
 			children = (
-				0B8A6C6C2D83FF4A00FC499F /* UIFactory.swift */,
 				0B14FA492D7F802A00A11DBF /* EdgeTalk */,
 				0B14FA482D7F802A00A11DBF /* Products */,
 			);
@@ -140,7 +134,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B8A6C6D2D83FF4A00FC499F /* UIFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
