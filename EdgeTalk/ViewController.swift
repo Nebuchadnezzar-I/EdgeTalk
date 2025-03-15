@@ -27,16 +27,18 @@ class ViewController: UIViewController {
     let OnboardingOneView = OnboardingOne().setupViews()
     let OnboardingTwoView = OnboardingTwo().setupViews()
     let OnboardingThreeView = OnboardingThree().setupViews()
+    let NFormView = NForm().setupViews()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.addSubview(ScrollView)
         ScrollView.addSubview(ContentView)
-        
+
         ContentView.addArrangedSubview(OnboardingOneView)
         ContentView.addArrangedSubview(OnboardingTwoView)
         ContentView.addArrangedSubview(OnboardingThreeView)
+        ContentView.addArrangedSubview(NFormView)
 
         NSLayoutConstraint.activate([
             ScrollView.topAnchor.constraint(
@@ -59,13 +61,15 @@ class ViewController: UIViewController {
             ContentView.heightAnchor.constraint(
                 equalTo: ScrollView.heightAnchor),
             ContentView.widthAnchor.constraint(
-                equalTo: ScrollView.widthAnchor, multiplier: 3),
+                equalTo: ScrollView.widthAnchor, multiplier: 4),
 
             OnboardingOneView.widthAnchor.constraint(
                 equalTo: ScrollView.widthAnchor),
             OnboardingTwoView.widthAnchor.constraint(
                 equalTo: ScrollView.widthAnchor),
             OnboardingThreeView.widthAnchor.constraint(
+                equalTo: ScrollView.widthAnchor),
+            NFormView.widthAnchor.constraint(
                 equalTo: ScrollView.widthAnchor),
         ])
     }
