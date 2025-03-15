@@ -13,22 +13,18 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         let scrollcontainer = createScrollView()
-        let onboardingOne = createOnboardingOne()
-        let onboardingTwo = createOnboardingTwo()
-        let onboardingThree = createOnboardingThree()
-        let negotiationForm = createNegotiationForm()
-        let mainProposal = createProposal()
-        let negotiationSettings = createNegotiationSettings()
-        let phoneCall = createPhoneCall()
+        let onboardingOne = OnboardingOneView()
+        let onboardingTwo = OnboardingTwoView()
+        let onboardingThree = OnboardingThreeView()
+        let scenarioSetup = ScenarioSetupView()
+        let proposal = ProposalView()
 
         view.addSubview(scrollcontainer)
         scrollcontainer.addSubview(onboardingOne)
         scrollcontainer.addSubview(onboardingTwo)
         scrollcontainer.addSubview(onboardingThree)
-        scrollcontainer.addSubview(negotiationForm)
-        scrollcontainer.addSubview(mainProposal)
-        scrollcontainer.addSubview(negotiationSettings)
-        scrollcontainer.addSubview(phoneCall)
+        scrollcontainer.addSubview(scenarioSetup)
+        scrollcontainer.addSubview(proposal)
 
         NSLayoutConstraint.activate([
             // Scroll View
@@ -44,63 +40,55 @@ class ViewController: UIViewController {
             // Onboarding One
             onboardingOne.topAnchor.constraint(
                 equalTo: scrollcontainer.contentLayoutGuide.topAnchor),
-            onboardingOne.bottomAnchor.constraint(
-                equalTo: scrollcontainer.contentLayoutGuide.bottomAnchor),
             onboardingOne.leadingAnchor.constraint(
                 equalTo: scrollcontainer.contentLayoutGuide.leadingAnchor),
+            onboardingOne.bottomAnchor.constraint(
+                equalTo: scrollcontainer.contentLayoutGuide.bottomAnchor),
 
             // Onboarding Two
             onboardingTwo.topAnchor.constraint(
                 equalTo: scrollcontainer.contentLayoutGuide.topAnchor),
             onboardingTwo.leadingAnchor.constraint(
-                equalTo: onboardingOne.trailingAnchor),
+                equalTo: onboardingOne.trailingAnchor),  // This changed
+            onboardingTwo.bottomAnchor.constraint(
+                equalTo: scrollcontainer.contentLayoutGuide.bottomAnchor),
 
             // Onboarding Three
             onboardingThree.topAnchor.constraint(
                 equalTo: scrollcontainer.contentLayoutGuide.topAnchor),
             onboardingThree.leadingAnchor.constraint(
                 equalTo: onboardingTwo.trailingAnchor),
+            onboardingThree.bottomAnchor.constraint(
+                equalTo: scrollcontainer.contentLayoutGuide.bottomAnchor),
 
-            // Negotiation Form
-            negotiationForm.topAnchor.constraint(
+            // Scenario setup
+            scenarioSetup.topAnchor.constraint(
                 equalTo: scrollcontainer.contentLayoutGuide.topAnchor),
-            negotiationForm.leadingAnchor.constraint(
+            scenarioSetup.leadingAnchor.constraint(
                 equalTo: onboardingThree.trailingAnchor),
+            scenarioSetup.bottomAnchor.constraint(
+                equalTo: scrollcontainer.contentLayoutGuide.bottomAnchor),
 
-            // Main Proposal
-            mainProposal.topAnchor.constraint(
+            // Scenario setup
+            proposal.topAnchor.constraint(
                 equalTo: scrollcontainer.contentLayoutGuide.topAnchor),
-            mainProposal.leadingAnchor.constraint(
-                equalTo: negotiationForm.trailingAnchor),
-
-            // Main Proposal
-            negotiationSettings.topAnchor.constraint(
-                equalTo: scrollcontainer.contentLayoutGuide.topAnchor),
-            negotiationSettings.leadingAnchor.constraint(
-                equalTo: mainProposal.trailingAnchor),
-
-            // Phone Call
-            phoneCall.topAnchor.constraint(
-                equalTo: scrollcontainer.contentLayoutGuide.topAnchor),
-            phoneCall.leadingAnchor.constraint(
-                equalTo: negotiationSettings.trailingAnchor),
-            phoneCall.trailingAnchor.constraint(
+            proposal.leadingAnchor.constraint(
+                equalTo: scenarioSetup.trailingAnchor),
+            proposal.bottomAnchor.constraint(
+                equalTo: scrollcontainer.contentLayoutGuide.bottomAnchor),
+            proposal.trailingAnchor.constraint(
                 equalTo: scrollcontainer.contentLayoutGuide.trailingAnchor),
 
-            // Match Heights (to scroll vertically locked, horizontal scrolling only)
+            // Match heights
             onboardingOne.heightAnchor.constraint(
                 equalTo: scrollcontainer.frameLayoutGuide.heightAnchor),
             onboardingTwo.heightAnchor.constraint(
                 equalTo: scrollcontainer.frameLayoutGuide.heightAnchor),
             onboardingThree.heightAnchor.constraint(
                 equalTo: scrollcontainer.frameLayoutGuide.heightAnchor),
-            negotiationForm.heightAnchor.constraint(
+            scenarioSetup.heightAnchor.constraint(
                 equalTo: scrollcontainer.frameLayoutGuide.heightAnchor),
-            mainProposal.heightAnchor.constraint(
-                equalTo: scrollcontainer.frameLayoutGuide.heightAnchor),
-            negotiationSettings.heightAnchor.constraint(
-                equalTo: scrollcontainer.frameLayoutGuide.heightAnchor),
-            phoneCall.heightAnchor.constraint(
+            proposal.heightAnchor.constraint(
                 equalTo: scrollcontainer.frameLayoutGuide.heightAnchor),
 
             // Match widths
@@ -110,16 +98,11 @@ class ViewController: UIViewController {
                 equalTo: scrollcontainer.frameLayoutGuide.widthAnchor),
             onboardingThree.widthAnchor.constraint(
                 equalTo: scrollcontainer.frameLayoutGuide.widthAnchor),
-            negotiationForm.widthAnchor.constraint(
+            scenarioSetup.widthAnchor.constraint(
                 equalTo: scrollcontainer.frameLayoutGuide.widthAnchor),
-            mainProposal.widthAnchor.constraint(
-                equalTo: scrollcontainer.frameLayoutGuide.widthAnchor),
-            negotiationSettings.widthAnchor.constraint(
-                equalTo: scrollcontainer.frameLayoutGuide.widthAnchor),
-            phoneCall.widthAnchor.constraint(
+            proposal.widthAnchor.constraint(
                 equalTo: scrollcontainer.frameLayoutGuide.widthAnchor),
         ])
-
     }
 }
 
@@ -135,7 +118,7 @@ extension ViewController {
             red: 217 / 255, green: 217 / 255, blue: 217 / 255, alpha: 0.1)
         rec.layer.cornerRadius = 70
         rec.clipsToBounds = true
-        
+
         let text = createSmallText(text: "Call", weight: .bold, fontSize: 24)
         text.layer.borderColor = UIColor.white.cgColor.copy(alpha: 0.1)
         text.layer.borderWidth = 1
@@ -145,9 +128,10 @@ extension ViewController {
 
         NSLayoutConstraint.activate([
             text.topAnchor.constraint(equalTo: v.topAnchor, constant: 32),
-            text.leadingAnchor.constraint(equalTo: v.leadingAnchor, constant: 16),
+            text.leadingAnchor.constraint(
+                equalTo: v.leadingAnchor, constant: 16),
             text.topAnchor.constraint(equalTo: v.topAnchor, constant: 16),
-            
+
             rec.widthAnchor.constraint(equalToConstant: 140),
             rec.heightAnchor.constraint(equalToConstant: 140),
             rec.centerXAnchor.constraint(equalTo: v.centerXAnchor),
