@@ -7,7 +7,8 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, BottomControlsDelegate {
+
     private let scrollView: UIScrollView = {
         let view = UIScrollView()
         view.isPagingEnabled = true
@@ -25,58 +26,101 @@ class MainViewController: UIViewController {
         return view
     }()
 
-    private let subView1 = OnboardingOne()
-    private let subview2 = OnboardingTwo()
-    private let subview3 = OnboardingThree()
+    private let onboardingOne = OnboardingOne()
+    private let onboardingTwo = OnboardingTwo()
+    private let onboardingThree = OnboardingThree()
+    private let setupForm = SetupForm()
+    private let proposal = Proposal()
+    private let setupSettings = SetupSettings()
+    private let negotiationCall = NegotiationCall()
+    private let negotiationSMS = NegotiationSMS()
+    private let feedback = Feedback()
+    private let dashboard = Dashboard()
+
+    private let controls = BottomControls()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        controls.delegate = self  // **Assign Delegate**
         setupScrollView()
     }
 
     private func setupScrollView() {
         view.addSubview(scrollView)
+        view.addSubview(controls)
         scrollView.addSubview(scrollStackViewContainer)
 
         NSLayoutConstraint.activate([
-            scrollView.leadingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            scrollView.trailingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            scrollView.topAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.bottomAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -64),
 
-            scrollStackViewContainer.leadingAnchor.constraint(
-                equalTo: scrollView.leadingAnchor),
-            scrollStackViewContainer.trailingAnchor.constraint(
-                equalTo: scrollView.trailingAnchor),
-            scrollStackViewContainer.topAnchor.constraint(
-                equalTo: scrollView.topAnchor),
-            scrollStackViewContainer.bottomAnchor.constraint(
-                equalTo: scrollView.bottomAnchor),
+            controls.topAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            controls.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            controls.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            controls.heightAnchor.constraint(equalToConstant: 64),
 
-            scrollStackViewContainer.heightAnchor.constraint(
-                equalTo: scrollView.heightAnchor),
+            scrollStackViewContainer.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            scrollStackViewContainer.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            scrollStackViewContainer.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            scrollStackViewContainer.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+
+            scrollStackViewContainer.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
         ])
 
         configureContainerView()
     }
 
     private func configureContainerView() {
-        scrollStackViewContainer.addArrangedSubview(subView1)
-        scrollStackViewContainer.addArrangedSubview(subview2)
-        scrollStackViewContainer.addArrangedSubview(subview3)
+        scrollStackViewContainer.addArrangedSubview(onboardingOne)
+        scrollStackViewContainer.addArrangedSubview(onboardingTwo)
+        scrollStackViewContainer.addArrangedSubview(onboardingThree)
+        scrollStackViewContainer.addArrangedSubview(setupForm)
+        scrollStackViewContainer.addArrangedSubview(proposal)
+        scrollStackViewContainer.addArrangedSubview(setupSettings)
+        scrollStackViewContainer.addArrangedSubview(negotiationCall)
+        scrollStackViewContainer.addArrangedSubview(negotiationSMS)
+        scrollStackViewContainer.addArrangedSubview(feedback)
+        scrollStackViewContainer.addArrangedSubview(dashboard)
 
         NSLayoutConstraint.activate([
-            subView1.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            subview2.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            subview3.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            onboardingOne.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            onboardingTwo.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            onboardingThree.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            setupForm.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            proposal.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            setupSettings.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            negotiationCall.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            negotiationSMS.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            feedback.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            dashboard.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
 
-            subView1.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
-            subview2.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
-            subview3.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
+            onboardingOne.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
+            onboardingTwo.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
+            onboardingThree.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
+            setupForm.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
+            proposal.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
+            setupSettings.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
+            negotiationCall.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
+            negotiationSMS.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
+            feedback.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
+            dashboard.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
         ])
+    }
+
+    // **Function to Scroll**
+    func scrollToPage(index: Int, animated: Bool = true) {
+        let maxIndex = scrollStackViewContainer.arrangedSubviews.count - 1
+        let validIndex = max(0, min(index, maxIndex))
+        let pageWidth = scrollView.frame.width
+        let offset = CGPoint(x: CGFloat(validIndex) * pageWidth, y: 0)
+        scrollView.setContentOffset(offset, animated: animated)
+    }
+
+    // **Delegate Method Implementation**
+    func didTapNextButton() {
+        let currentPage = Int(scrollView.contentOffset.x / scrollView.frame.width)
+        scrollToPage(index: currentPage + 1)
     }
 }
