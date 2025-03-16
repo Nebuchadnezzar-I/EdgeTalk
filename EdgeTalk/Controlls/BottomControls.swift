@@ -14,6 +14,7 @@ protocol BottomControlsDelegate: AnyObject {
 
 class BottomControls: UIView {
     weak var delegate: BottomControlsDelegate?
+    private var isNextButtonOnCooldown = false
 
     init() {
         super.init(frame: .zero)
@@ -57,6 +58,14 @@ class BottomControls: UIView {
     }
 
     @objc private func nextButtonTapped() {
+        guard !isNextButtonOnCooldown else {
+            return
+        }
+
         delegate?.didTapNextButton()
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.isNextButtonOnCooldown = false
+        }
     }
 }
