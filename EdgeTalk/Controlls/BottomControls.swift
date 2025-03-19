@@ -8,12 +8,9 @@
 import Foundation
 import UIKit
 
-protocol BottomControlsDelegate: AnyObject {
-    func didTapNextButton()
-}
-
 class BottomControls: UIView {
-    weak var delegate: BottomControlsDelegate?
+    // @Observe state changes to update UI (handleNextButtonStateChange)
+
     private var isNextButtonOnCooldown = false
 
     init() {
@@ -58,11 +55,11 @@ class BottomControls: UIView {
     }
 
     @objc private func nextButtonTapped() {
-        guard !isNextButtonOnCooldown else {
-            return
-        }
+        guard !isNextButtonOnCooldown else { return }
 
-        delegate?.didTapNextButton()
+        isNextButtonOnCooldown = true
+
+        NotificationCenter.default.post(name: .nextButtonTriggered, object: nil)
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.isNextButtonOnCooldown = false
