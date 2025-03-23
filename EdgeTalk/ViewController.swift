@@ -7,9 +7,24 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-    private var isCooldown = false
+enum Pages {
+    case OnboardingOne
+    case OnboardingTwo
+    case OnboardingThree
+    case SetupFrom
+    case ProposalReview
+    case ProposalSettings
+    case NegotiationCall
+    case NegotiationSMS
+    case NegotiationReview
+    case Dashboard
+}
 
+class ViewController: UIViewController {
+    // Get from DB
+    private var currentPage = Pages.OnboardingOne
+
+    private var isCooldown = false
     private var nextPageIndex: Int = 0
     private let totalPages: Int = 10
 
@@ -87,11 +102,13 @@ class ViewController: UIViewController {
 
         nextPage()
     }
+}
 
+extension ViewController {
     @objc private func nextPage() {
         guard !isCooldown else { return }
         isCooldown = true
-
+        
         addPage(index: nextPageIndex)
         view.layoutIfNeeded()
         let xOffset = CGFloat(nextPageIndex) * scrollView.frame.width
@@ -106,6 +123,7 @@ class ViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
             self.isCooldown = false
         }
+        getNextPage()
     }
 
     private func addPage(index: Int) {
@@ -118,7 +136,7 @@ class ViewController: UIViewController {
         )
 
         let label = UILabel()
-        label.text = "Page \(index + 1) + S"
+        label.text = getPageContent()
         label.textAlignment = .center
         label.font = .boldSystemFont(ofSize: 32)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -136,5 +154,54 @@ class ViewController: UIViewController {
             page.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             page.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
         ])
+    }
+
+    private func getNextPage() {
+        switch currentPage {
+        case .OnboardingOne:
+            currentPage = .OnboardingTwo
+        case .OnboardingTwo:
+            currentPage = .OnboardingThree
+        case .OnboardingThree:
+            currentPage = .SetupFrom
+        case .SetupFrom:
+            currentPage = .ProposalReview
+        case .ProposalReview:
+            currentPage = .ProposalSettings
+        case .ProposalSettings:
+            currentPage = .NegotiationCall
+        case .NegotiationCall:
+            currentPage = .NegotiationReview
+        case .NegotiationSMS: break
+        case .NegotiationReview:
+            currentPage = .Dashboard
+        case .Dashboard:
+            currentPage = .SetupFrom
+        }
+    }
+
+    private func getPageContent() -> String {
+        switch currentPage {
+        case .OnboardingOne:
+            "OnboardingOne"
+        case .OnboardingTwo:
+            "OnboardingTwo"
+        case .OnboardingThree:
+            "OnboardingThree"
+        case .SetupFrom:
+            "SetupFrom"
+        case .ProposalReview:
+            "ProposalReview"
+        case .ProposalSettings:
+            "ProposalSettings"
+        case .NegotiationCall:
+            "NegotiationCall"
+        case .NegotiationSMS:
+            "NegotiationSMS"
+        case .NegotiationReview:
+            "NegotiationReview"
+        case .Dashboard:
+            "Dashboard"
+        }
     }
 }
