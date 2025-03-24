@@ -108,12 +108,12 @@ extension ViewController {
     @objc private func nextPage() {
         guard !isCooldown else { return }
         isCooldown = true
-        
-        addPage(index: nextPageIndex)
+
+        addPage()
         view.layoutIfNeeded()
         let xOffset = CGFloat(nextPageIndex) * scrollView.frame.width
 
-        UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut])
+        UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseInOut])
         {
             self.scrollView.contentOffset = CGPoint(x: xOffset, y: 0)
         }
@@ -126,26 +126,20 @@ extension ViewController {
         getNextPage()
     }
 
-    private func addPage(index: Int) {
-        let page = UIView()
-        page.backgroundColor = UIColor(
-            hue: CGFloat(index % 10) / 10.0,
-            saturation: 0.4,
-            brightness: 1.0,
-            alpha: 1.0
-        )
+    private func addPage() {
+        var page: UIView!
 
-        let label = UILabel()
-        label.text = getPageContent()
-        label.textAlignment = .center
-        label.font = .boldSystemFont(ofSize: 32)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        page.addSubview(label)
-
-        NSLayoutConstraint.activate([
-            label.centerXAnchor.constraint(equalTo: page.centerXAnchor),
-            label.centerYAnchor.constraint(equalTo: page.centerYAnchor),
-        ])
+        if currentPage == .OnboardingOne {
+            page = OnboardingOnePage().makePage()
+        } else if currentPage == .OnboardingTwo {
+            page = OnboardingTwoPage().makePage()
+        } else if currentPage == .OnboardingThree {
+            page = OnboardingThreePage().makePage()
+        } else if currentPage == .SetupFrom {
+            page = SetupForm().makePage()
+        } else {
+            page = Temp().makePage()
+        }
 
         page.translatesAutoresizingMaskIntoConstraints = false
         contentView.addArrangedSubview(page)
