@@ -1,26 +1,22 @@
 //
-//  Temp.swift
+//  ProposalReview.swift
 //  EdgeTalk
 //
-//  Created by Michal Ukropec on 24/03/2025.
+//  Created by Michal Ukropec on 28/03/2025.
 //
 
 import Foundation
 import UIKit
 
-class Temp: UIView {
+class ProposalReview: UIView {
     func makePage() -> UIView {
         let page = UIView()
-        page.backgroundColor = UIColor(
-            hue: CGFloat() / 10.0,
-            saturation: 0.4,
-            brightness: 1.0,
-            alpha: 1.0
-        )
 
         let label = UILabel()
+        label.text = "Proposal Review"
         label.textAlignment = .center
-        label.font = .boldSystemFont(ofSize: 32)
+        label.textColor = .white
+        label.font = .boldSystemFont(ofSize: 24)
         label.translatesAutoresizingMaskIntoConstraints = false
         page.addSubview(label)
 

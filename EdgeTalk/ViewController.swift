@@ -30,11 +30,11 @@ class ViewController: UIViewController {
 
     private let mainButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Continue", for: .normal)
+        button.setTitle("Next", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = UIColor(
             red: 0, green: 122 / 255, blue: 1, alpha: 1)
-        button.titleLabel?.font = .systemFont(ofSize: 16)
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
         button.layer.cornerRadius = 28
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -93,11 +93,11 @@ class ViewController: UIViewController {
                 equalTo: scrollView.trailingAnchor),
 
             mainButton.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor, constant: -40),
+                equalTo: view.trailingAnchor, constant: -16),
             mainButton.bottomAnchor.constraint(
                 equalTo: view.bottomAnchor, constant: -40),
             mainButton.heightAnchor.constraint(equalToConstant: 56),
-            mainButton.widthAnchor.constraint(equalToConstant: 120),
+            mainButton.widthAnchor.constraint(equalToConstant: 85),
         ])
 
         nextPage()
@@ -137,8 +137,16 @@ extension ViewController {
             page = OnboardingThreePage().makePage()
         } else if currentPage == .SetupFrom {
             page = SetupForm().makePage()
+        } else if currentPage == .ProposalReview {
+            page = ProposalReview().makePage()
+        } else if currentPage == .ProposalSettings {
+            page = ProposalSettings().makePage()
+        } else if currentPage == .NegotiationCall {
+            page = NegotiationCall().makePage()
+        } else if currentPage == .NegotiationReview {
+            page = NegotiationReview().makePage()
         } else {
-            page = Temp().makePage()
+            page = Dashboard().makePage()
         }
 
         page.translatesAutoresizingMaskIntoConstraints = false
